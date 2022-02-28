@@ -1,11 +1,9 @@
 <template>
-  <!--  <img alt="Vue logo" src="./assets/logo.png">-->
-  <!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
   <div>{{ msg }}的年龄{{ age }}</div>
   <button @click="add">+</button>
   <div>{{ double }}</div>
   <!-- 组件 -->
-  <content-child></content-child>
+  <content-child :msg="msg">子组件</content-child>
 </template>
 
 <script>
