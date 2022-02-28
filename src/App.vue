@@ -3,7 +3,7 @@
   <button @click="add">+</button>
   <div>{{ double }}</div>
   <!-- 组件 -->
-  <content-child :msg="msg">子组件</content-child>
+  <content-child :msg="msg" @change="showName">子组件</content-child>
 </template>
 
 <script>
@@ -12,26 +12,29 @@ import contentChild from "./components/contentChild.vue";
 
 export default {
   name: "App",
-// 组件
+  // 组件
   components: {
     contentChild,
   },
   setup() {
     const msg = ref("王大盒");
     const age = ref(18);
-// 计算属性
+    // 计算属性
     const double = computed(() => {
       return age.value * 2;
     });
-// 点击事件
+    // 点击事件
     function add() {
       age.value += 1;
     }
-    return { msg, age, add,double };
+    function showName(params) {
+      // params 子组件向父组件传过来的值
+      alert(params);
+    }
+    return { msg, age, add, double, showName };
   },
 };
 </script>
 
 <style>
-
 </style>
