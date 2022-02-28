@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { computed, reactive,toRefs } from "vue";
 import contentChild from "./components/contentChild.vue";
 
 export default {
@@ -17,21 +17,23 @@ export default {
     contentChild,
   },
   setup() {
-    const msg = ref("王大盒");
-    const age = ref(18);
-    // 计算属性
-    const double = computed(() => {
-      return age.value * 2;
+    const state = reactive({
+      msg: "王大盒",
+      age: 18,
+      // 计算属性
+     double: computed(() => {
+      return state.age * 2;
+    })
     });
     // 点击事件
     function add() {
-      age.value += 1;
+      state.age += 1;
     }
     function showName(params) {
       // params 子组件向父组件传过来的值
       alert(params);
     }
-    return { msg, age, add, double, showName };
+    return { ...toRefs(state), add, showName };
   },
 };
 </script>
