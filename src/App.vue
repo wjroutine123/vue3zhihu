@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { computed, reactive,toRefs } from "vue";
+import { computed, reactive, toRefs, watch } from "vue";
 import contentChild from "./components/contentChild.vue";
 
 export default {
@@ -21,14 +21,24 @@ export default {
       msg: "王大盒",
       age: 18,
       // 计算属性
-     double: computed(() => {
-      return state.age * 2;
-    })
+      double: computed(() => {
+        return state.age * 2;
+      }),
     });
     // 点击事件
     function add() {
       state.age += 1;
     }
+    // 点击+ 监听年龄 newVal->监听对象,oldVal->回调函数,clean->用于重复使用清理异步事务
+    watch(
+      () => state.age,
+      (newVal, oldVal, clean) => {
+        console.log(state.age + "去年" + oldVal + "今年" + newVal);
+        clean(() => {
+          console.log("clean");
+        });
+      }
+    );
     function showName(params) {
       // params 子组件向父组件传过来的值
       alert(params);
